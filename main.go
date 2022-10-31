@@ -7,12 +7,17 @@ import (
 )
 
 func main() {
+	rand.Seed(time.Now().Unix())
+
+	wait := rand.Intn(int(time.Hour) * 8)
+
+	time.Sleep(time.Duration(wait))
+
 	squats, err := Squats(time.Now().Day())
 	if err != nil {
 		panic(err)
 	}
 
-	rand.Seed(time.Now().Unix())
 	if squats == 0 {
 		fmt.Printf(restMessages[rand.Intn(len(restMessages))])
 	} else {
