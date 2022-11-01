@@ -56,6 +56,7 @@ func main() {
 	rand.Seed(time.Now().Unix())
 	for {
 		wait := rand.Intn(int(maxWaitDuration))
+		restWait := (time.Hour * 24) - time.Duration(wait)
 		time.Sleep(time.Duration(wait))
 
 		squats, err := squat.Squats(time.Now().Day())
@@ -69,6 +70,7 @@ func main() {
 			} else {
 				log.WithError(err).Fatal("failed to get amount of squats")
 			}
+			time.Sleep(restWait)
 			continue
 		}
 
@@ -94,6 +96,7 @@ func main() {
 			} else {
 				log.WithError(err).Fatalf("failed to send message: %q", msg)
 			}
+			time.Sleep(restWait)
 			continue
 		}
 
@@ -112,5 +115,8 @@ func main() {
 			restMessages = tmp
 			log.Info("Rest messages have been reset")
 		}
+
+		// This makes sure that the random duration always starts at the same time of day
+		time.Sleep(restWait)
 	}
 }
