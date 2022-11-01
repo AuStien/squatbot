@@ -42,6 +42,7 @@ func main() {
 		r.HandleFunc("/healtz", func(w http.ResponseWriter, r *http.Request) { return })
 		r.HandleFunc("/readyz", func(w http.ResponseWriter, r *http.Request) { return })
 
+		log.Info("Server running on port 8080")
 		log.Fatal(http.ListenAndServe(":8080", r))
 	}()
 
