@@ -55,8 +55,9 @@ func main() {
 
 	rand.Seed(time.Now().Unix())
 	for {
-		wait := rand.Intn(int(maxWaitDuration))
+		wait := rand.Int63n(int64(maxWaitDuration))
 		restWait := (time.Hour * 24) - time.Duration(wait)
+		log.Infof("Sleeping until ", time.Unix(0, time.Now().UnixNano()+wait))
 		time.Sleep(time.Duration(wait))
 
 		squats, err := squat.Squats(time.Now().Day())
@@ -117,6 +118,7 @@ func main() {
 		}
 
 		// This makes sure that the random duration always starts at the same time of day
+		log.Infof("Starting next iteration at %s", time.Unix(0, time.Now().UnixNano()+restWait.Nanoseconds()))
 		time.Sleep(restWait)
 	}
 }
