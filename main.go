@@ -39,7 +39,7 @@ func main() {
 
 	go func() {
 		r := http.NewServeMux()
-		r.HandleFunc("/healtz", func(w http.ResponseWriter, r *http.Request) { return })
+		r.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) { return })
 		r.HandleFunc("/readyz", func(w http.ResponseWriter, r *http.Request) { return })
 
 		log.Info("Server running on port 8080")
